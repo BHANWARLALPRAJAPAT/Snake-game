@@ -28,7 +28,8 @@ void Setup()
 }
 void Draw()
 {
-    system("cls"); 
+    
+    system("cls");
     for (int i = 0; i < width + 2; i++)
         cout << "#";
     cout << endl;
@@ -41,6 +42,8 @@ void Draw()
                 cout << "#";
             if (i == y && j == x)
                 cout << "O";
+            else if(i == fruitY && j == fruitX)
+                cout << "F";
             else
             {
                 bool print = false;
@@ -52,7 +55,7 @@ void Draw()
                         print = true;
                     }
                 }
-                
+
                 if (!print)
                     cout << " ";
             }
