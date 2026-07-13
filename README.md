@@ -4,12 +4,32 @@ A classic Snake game built in C++ for the Windows console, using `conio.h` for r
 
 ## 📋 Description
 
-This is a text-based Snake game that renders directly in the terminal using ASCII characters. The player controls a snake (`O` for the head, `o` for the tail) that moves around a bordered grid, eating fruit to grow longer and increase the score.
+This is a text-based Snake game that renders directly in the terminal using ASCII characters. The player controls a snake (`O` for the head, `o` for the tail) that moves around a bordered grid, eating fruit (`F`) to grow longer and increase the score.
 
 **Current behavior:**
+- The fruit is now visibly drawn on the grid as `F`.
 - The snake **wraps around the edges** of the screen instead of dying when it hits a wall.
 - Self-collision (running into its own tail) is **currently disabled** in the code (commented out), so the snake cannot die by touching itself.
 - As a result, the game currently has **no way to end** other than closing the program — the collision/game-over checks exist in the code but are commented out.
+
+## 🎯 Scope
+
+This project is a minimal, educational implementation of Snake intended to demonstrate core game-loop concepts in C++. It covers:
+
+- A basic `Setup → Draw → Input → Logic` game loop structure
+- Real-time (non-blocking) keyboard input using `conio.h`
+- Console-based rendering with `system("cls")` and ASCII characters
+- Simple 2D grid movement, wrapping, and array-based tail tracking
+- Fruit spawning, collision detection with fruit, and score tracking
+
+**Out of scope / not currently included:**
+- Proper game-over conditions (wall or self-collision)
+- Cross-platform support (Windows-only due to `conio.h`)
+- Speed control / difficulty scaling
+- Menus, pause functionality, high scores, or save/load
+- Graphics beyond plain text/ASCII
+
+This project is meant as a learning exercise and a base to extend, not a full-featured game.
 
 ## 🛠️ Requirements
 
@@ -49,7 +69,7 @@ snake.exe
 ## 🍎 Gameplay
 
 - The snake starts in the middle of a `50 x 20` grid.
-- A fruit (`X`, `Y` position) spawns at a random location.
+- A fruit (`F`) spawns at a random location and is now rendered on the grid.
 - Move the snake onto the fruit to:
   - Increase the score by `10`
   - Grow the snake's tail by one segment
