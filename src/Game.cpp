@@ -76,16 +76,16 @@ void Game::Input()
         switch (GetKey())
         {
         case 'a':
-            dir = LEFT;
+            if(dir != RIGHT) dir = LEFT;
             break;
         case 'd':
-            dir = RIGHT;
+            if(dir != LEFT) dir = RIGHT;
             break;
         case 'w':
-            dir = UP;
+            if(dir != DOWN) dir = UP;
             break;
         case 's':
-            dir = DOWN;
+            if(dir != UP) dir = DOWN;
             break;
         case 'x':
             // gameOver = true;
