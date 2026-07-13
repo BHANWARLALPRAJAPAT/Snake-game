@@ -1,22 +1,16 @@
+#include "Game.h"
+#include "Platform.h"
 #include <iostream>
-#include <conio.h>
+#include <cstdlib>
+
 using namespace std;
-bool gameOver;
-const int width = 50;
-const int height = 20;
-int x, y, fruitX, fruitY, score;
-int tailX[100], tailY[100];
-int nTail;
-enum eDirecton
+
+Game::Game()
 {
-    STOP = 0,
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN
-};
-eDirecton dir;
-void Setup()
+    Setup();
+}
+
+void Game::Setup()
 {
     gameOver = false;
     dir = STOP;
@@ -25,11 +19,13 @@ void Setup()
     fruitX = rand() % width;
     fruitY = rand() % height;
     score = 0;
+    nTail = 0;
 }
-void Draw()
+
+void Game::Draw()
 {
-    
-    system("cls");
+    ClearScreen();
+
     for (int i = 0; i < width + 2; i++)
         cout << "#";
     cout << endl;
@@ -40,9 +36,10 @@ void Draw()
         {
             if (j == 0)
                 cout << "#";
+
             if (i == y && j == x)
                 cout << "O";
-            else if(i == fruitY && j == fruitX)
+            else if (i == fruitY && j == fruitX)
                 cout << "F";
             else
             {
@@ -71,11 +68,12 @@ void Draw()
     cout << endl;
     cout << "Score:" << score << endl;
 }
-void Input()
+
+void Game::Input()
 {
-    if (_kbhit())
+    if (KeyHit())
     {
-        switch (_getch())
+        switch (GetKey())
         {
         case 'a':
             dir = LEFT;
@@ -95,13 +93,15 @@ void Input()
         }
     }
 }
-void Logic()
+
+void Game::Logic()
 {
     int prevX = tailX[0];
     int prevY = tailY[0];
     int prev2X, prev2Y;
     tailX[0] = x;
     tailY[0] = y;
+
     for (int i = 1; i < nTail; i++)
     {
         prev2X = tailX[i];
@@ -111,6 +111,7 @@ void Logic()
         prevX = prev2X;
         prevY = prev2Y;
     }
+
     switch (dir)
     {
     case LEFT:
@@ -128,17 +129,19 @@ void Logic()
     default:
         break;
     }
-    // if (x > width || x < 0 || y > height || y < 0)
-    //   gameOver = true;
+
+    // Wrap around edges instead of ending the game.
     if (x >= width)
         x = 0;
     else if (x < 0)
         x = width - 1;
+
     if (y >= height)
         y = 0;
     else if (y < 0)
         y = height - 1;
 
+    // Self-collision check (disabled, as in the original version):
     // for (int i = 0; i < nTail; i++)
     //     if (tailX[i] == x && tailY[i] == y)
     //         gameOver = true;
@@ -151,14 +154,13 @@ void Logic()
         nTail++;
     }
 }
-int main()
+
+void Game::Run()
 {
-    Setup();
     while (!gameOver)
     {
         Draw();
         Input();
         Logic();
     }
-    return 0;
 }
